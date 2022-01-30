@@ -1,0 +1,19 @@
+
+name: ccenvironment
+channels:
+    - conda-forge
+    - defaults
+dependencies:
+    - python=3.7
+    - numpy=1.16.4
+    - librosa
+    - tensorflow
+    - scikit-learn
+    - matplotlib
+    - seaborn
+    - ffmpeg
+    - audioread
+    - pip
+    - jupyter
+    - pip:
+      - pandas

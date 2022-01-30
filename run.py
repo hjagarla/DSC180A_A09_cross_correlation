@@ -1,17 +1,23 @@
 #!/usr/bin/env python
+# run:
+# conda env create -f environment.yml
+# conda activate ccenvironment
+
 
 import sys
+import subprocess
 import json
 
 sys.path.insert(0, 'src/data')
 sys.path.insert(0, 'src/analysis')
 sys.path.insert(0, 'src/model')
 
-from etl import get_data
-from analysis import compute_aggregates
-from model import train
+from cross_correlation import load_audio
+from cross_correlation import spectrogram
+from cross_correlation import template
+from cross_correlation import correlation
 
-
+    
 def main(targets):
     '''
     Runs the main project pipeline logic, given the targets.
@@ -20,12 +26,24 @@ def main(targets):
     `main` runs the targets in order of data=>analysis=>model.
     '''
 
-    if 'test' in targets:
-        convert_notebook(**eda_config)
+    data_config = 'data-params.json'
+    if 'data' in targets:
+        audio = load_audio(data_config)
+        template = template(audio)
+        template
 
-    return
+    if 'analysis' in targets:
+        audio = load_audio(data_config)
+        tf_audio = spectrogram(audio)
+        tf_audio
 
-
+    if 'model' in targets:
+        audio = load_audio(data_config)
+        tf_audio = spectrogram(audio)
+        template = template(audio)
+        model = correlation(data_config, tf_audio, template) 
+        model
+        
 if __name__ == '__main__':
     # run via:
     # python main.py data model

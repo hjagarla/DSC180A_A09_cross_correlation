@@ -17,7 +17,7 @@ from cross_correlation import spectrogram
 from cross_correlation import template
 from cross_correlation import correlation
 
-    
+
 def main(targets):
     '''
     Runs the main project pipeline logic, given the targets.
@@ -38,12 +38,12 @@ def main(targets):
         tf_audio
 
     if 'model' in targets:
-        audio = load_audio(data_config)
+        audio = load_audio("data/test/ScreamingPiha2.wav")
         tf_audio = spectrogram(audio)
         template = template(audio)
-        model = correlation(data_config, tf_audio, template) 
+        model = correlation("data/test/ScreamingPiha2.wav", tf_audio, template)
         model
-        
+
 if __name__ == '__main__':
     # run via:
     # python main.py data model

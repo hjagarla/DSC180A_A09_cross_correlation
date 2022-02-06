@@ -138,11 +138,12 @@ def local_line_graph(
 
 
 def local_score_visualization(
+        local_score, 
         clip_path,
         weight_path=None,
         premade_annotations_df=None,
         premade_annotations_label="Human Labels",
-        automated_df=False,
+        automated_df=True,
         isolation_parameters=None,
         log_scale=False,
         save_fig=False,
@@ -182,6 +183,7 @@ def local_score_visualization(
     """
 
     # Loading in the clip with Microfaune's built-in loading function
+    # Using Librosa instead
     try:
         SAMPLE_RATE, SIGNAL = audio.load_wav(clip_path)
     except BaseException:
@@ -199,50 +201,34 @@ def local_score_visualization(
         print("Failure in downsampling", clip_path)
         return
 
-    # Converting to Mono if Necessary
-    if len(SIGNAL.shape) == 2:
-        # averaging the two channels together
-        SIGNAL = SIGNAL.sum(axis=1) / 2
-
-    # Initializing the detector to baseline or with retrained weights
-    if weight_path is None:
-        # Microfaune RNNDetector class
-        detector = RNNDetector()
-    else:
-        try:
-            # Initializing Microfaune hybrid CNN-RNN with new weights
-            detector = RNNDetector(weight_path)
-        except BaseException:
-            print("Error in weight path:", weight_path)
-            return
-    try:
-        # Computing Mel Spectrogram of the audio clip
-        microfaune_features = detector.compute_features([SIGNAL])
-        # Running the Mel Spectrogram through the RNN
-        global_score, local_score = detector.predict(microfaune_features)
-    except BaseException:
-        print(
-            "Skipping " +
-            clip_path +
-            " due to error in Microfaune Prediction")
+#     # Initializing the detector to baseline or with retrained weights
+#     if weight_path is None:
+#         # Microfaune RNNDetector class
+#         detector = RNNDetector()
+#     else:
+#         try:
+#             # Initializing Microfaune hybrid CNN-RNN with new weights
+#             detector = RNNDetector(weight_path)
+#         except BaseException:
+#             print("Error in weight path:", weight_path)
+#             return
+#     try:
+#         # Computing Mel Spectrogram of the audio clip
+#         microfaune_features = detector.compute_features([SIGNAL])
+#         # Running the Mel Spectrogram through the RNN
+#         global_score, local_score = detector.predict(microfaune_features)
+#     except BaseException:
+#         print(
+#             "Skipping " +
+#             clip_path +
+#             " due to error in Microfaune Prediction")
 
     # In the case where the user wants to look at automated bird labels
     if premade_annotations_df is None:
         premade_annotations_df = pd.DataFrame()
-    if automated_df:
-        automated_df = isolate(
-            local_score[0],
-            SIGNAL,
-            SAMPLE_RATE,
-            "Doesn't",
-            "Matter",
-            isolation_parameters,
-            normalize_local_scores=normalize_local_scores)
-    else:
-        automated_df = pd.DataFrame()
 
     local_line_graph(
-        local_score[0].tolist(),
+        local_score,
         clip_path,
         SAMPLE_RATE,
         SIGNAL,

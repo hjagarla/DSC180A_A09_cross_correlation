@@ -38,7 +38,7 @@ def template(y):
     plt.title("Piha Template")
     return template
 
-def correlation(clip_path, S, template):
+def correlation(clip_path, S, template, y):
     ''' takes the path of the audio clip, the transformed audio
         clip, and the template to perform the cross-correlation
         to display the local_score_visualization, and returns
@@ -51,10 +51,25 @@ def correlation(clip_path, S, template):
         "bi_directional_jump" : 0.05,
         "window_size" : 1.0
     }
+    SAMPLE_RATE, SIGNAL = audio.load_wav(clip_path)
+    if len(SIGNAL.shape) == 2:
+        # averaging the two channels together
+        SIGNAL = SIGNAL.sum(axis=1) / 2
+        
+    # downsample the audio if the sample rate > 44.1 kHz
+    # Force everything into the human hearing range.
+
+    if SAMPLE_RATE > 44100:
+        rate_ratio = 44100 / SAMPLE_RATE
+        SIGNAL = scipy_signal.resample(
+            SIGNAL, int(len(SIGNAL) * rate_ratio))
+        SAMPLE_RATE = 44100
 
     corr = signal.correlate2d(S,template,boundary='symm',mode='same')
     corr_reduced_max = np.amax(corr,axis=0)
+    local_score = corr_reduced_max/max(corr_reduced_max)
 
     test_df = steinberg_isolate(corr_reduced_max/max(corr_reduced_max),y,12000,"test_dir","test_file",isolation_parameters)
-    local_score_visualization(clip_path, premade_annotations_df = test_df)
+    local_line_graph(corr, clip_path, SAMPLE_RATE, SIGNAL, automated_df = test_df, premade_annotations_df=pd.DataFrame())
+    # local_score_visualization(local_score, clip_path, automated_df = test_df)
     return test_df

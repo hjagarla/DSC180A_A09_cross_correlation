@@ -1,9 +1,8 @@
-# Generic Simple Project Template
+# Cross Correlation Model
 
-This repository contains skeleton code for a generic project.
+The project illustrates a DS project that takes in a template bird audio clip and runs it against a set of bird clips of the same species through a cross correlation model that automatically annotates those clips. This project will explore how well the model works on larger sets of data and different species while also obtaining a good amount of automated data for other future uses. The cross correlation model does not use machine learning and runs on the libraries: PyHa* (Python + Piha), Librosa, and Scipy. 
 
-This code does not run, as the functions are not implemented. There
-should be enough detail to illustrate how the components of the
-project are strung together.
+* Pyha: https://github.com/UCSD-E4E/PyHa/blob/main/README.md
 
+## 
 

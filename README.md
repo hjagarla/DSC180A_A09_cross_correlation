@@ -4,5 +4,12 @@ The project illustrates a DS project that takes in a template bird audio clip an
 
 * Pyha: https://github.com/UCSD-E4E/PyHa/blob/main/README.md
 
-## 
+## Data 
+
+To use the model, you can edit the file config/data-params.json to change the path/location of the new data file you're trying to test on
+
+## Running
+
+The project assumes the data is stored in the data folder in .wav form with an existing template for each species. To set up the environment with the proper libraries run the following code (without quotes): 
+'conda env create -f environment.yml'
 

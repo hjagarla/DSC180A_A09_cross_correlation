@@ -38,11 +38,7 @@ def template(y):
     plt.title("Piha Template")
     return template
 
-def correlation(clip_path, S, template, y):
-    ''' takes the path of the audio clip, the transformed audio
-        clip, and the template to perform the cross-correlation
-        to display the local_score_visualization, and returns
-        the dataframe'''
+def correlation():
     isolation_parameters = {
         "technique" : "steinberg",
         "threshold_type" : "median",
@@ -50,7 +46,14 @@ def correlation(clip_path, S, template, y):
         "threshold_min" : 0.0,
         "bi_directional_jump" : 0.05,
         "window_size" : 1.0
-    }
+        }
+    return isolation_parameters
+
+def test(clip_path, S, template, y, params):
+    ''' takes the path of the audio clip, the transformed audio
+        clip, and the template to perform the cross-correlation
+        to display the local_score_visualization, and returns
+        the dataframe'''
     SAMPLE_RATE, SIGNAL = audio.load_wav(clip_path)
     if len(SIGNAL.shape) == 2:
         # averaging the two channels together
@@ -69,7 +72,7 @@ def correlation(clip_path, S, template, y):
     corr_reduced_max = np.amax(corr,axis=0)
     local_score = corr_reduced_max/max(corr_reduced_max)
 
-    test_df = steinberg_isolate(corr_reduced_max/max(corr_reduced_max),y,12000,"test_dir","test_file",isolation_parameters)
+    test_df = steinberg_isolate(corr_reduced_max/max(corr_reduced_max),y,12000,"test_dir","test_file",params)
     local_line_graph(corr, clip_path, SAMPLE_RATE, SIGNAL, automated_df = test_df, premade_annotations_df=pd.DataFrame())
     # local_score_visualization(local_score, clip_path, automated_df = test_df)
     return test_df

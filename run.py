@@ -16,6 +16,7 @@ from cross_correlation import load_audio
 from cross_correlation import spectrogram
 from cross_correlation import template
 from cross_correlation import correlation
+from cross_correlation import test
 
 
 def main(targets):
@@ -38,11 +39,15 @@ def main(targets):
         tf_audio
 
     if 'model' in targets:
+        correlation()
+
+    if 'test' in targets:
         audio = load_audio(data_config)
         tf_audio = spectrogram(audio)
         temp = template(audio)
-        model = correlation(data_config, tf_audio, temp, audio)
-        model
+        model = correlation()
+        output = test(data_config, tf_audio, temp, audio, model)
+        output
 
 if __name__ == '__main__':
     # run via:

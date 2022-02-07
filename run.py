@@ -27,14 +27,17 @@ def main(targets):
     `main` runs the targets in order of data=>analysis=>model.
     '''
 
-    data_config = "data/test/ScreamingPiha2.wav"
+    file = open('data-params.json')
+    data_config = json.load(file)
+    clip_path = data_config['clip_path']
+
     if 'data' in targets:
-        audio = load_audio(data_config)
+        audio = load_audio(clip_path)
         temp = template(audio)
         temp
 
     if 'analysis' in targets:
-        audio = load_audio(data_config)
+        audio = load_audio(clip_path)
         tf_audio = spectrogram(audio)
         tf_audio
 
@@ -42,11 +45,11 @@ def main(targets):
         correlation()
 
     if 'test' in targets:
-        audio = load_audio(data_config)
+        audio = load_audio(clip_path)
         tf_audio = spectrogram(audio)
         temp = template(audio)
         model = correlation()
-        output = test(data_config, tf_audio, temp, audio, model)
+        output = test(clip_path, tf_audio, temp, audio, model)
         output
 
 if __name__ == '__main__':

@@ -13,5 +13,8 @@ To use the model, you can edit the file config/data-params.json to change the pa
 The project assumes the data is stored in the data folder in .wav form with an existing template for each species. To set up the environment with the proper librariesm run the following code: 
 `conda env create -f environment.yml`
 
+To activate the environment, run the following code:
+`conda activate ccenvironment`
+
 To run the pipeline once the environment is set up, run the following code:
 `py run.py test`

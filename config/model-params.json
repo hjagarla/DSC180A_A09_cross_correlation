@@ -1,0 +1,8 @@
+{
+"technique": "steinberg",
+"threshold_type": "median",
+"threshold_const": 2.0,
+"threshold_min" : 0.0,
+"bi_directional_jump" : 0.05,
+"window_size" : 1.0
+}

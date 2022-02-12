@@ -19,6 +19,7 @@ def local_line_graph(
         log_scale=False,
         save_fig=False,
         normalize_local_scores=False):
+
     """
     Function that produces graphs with the local score plot and spectrogram of
     an audio clip. Now integrated with Pandas so you can visualize human and

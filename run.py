@@ -27,9 +27,19 @@ def main(targets):
     `main` runs the targets in order of data=>analysis=>model.
     '''
 
-    file = open('data-params.json')
-    data_config = json.load(file)
+    data_param = open('data-params.json')
+    data_config = json.load(data_param)
+    temp_path = data_config['temp_path']
     clip_path = data_config['clip_path']
+
+    model_param = open('model-params.json')
+    model_config = json.load(model_param)
+    technique = model_config['technique']
+    threshold_type = model_config['threshold_type']
+    threshold_const = model_config['threshold_const']
+    threshold_min = model_config['threshold_min']
+    bi_dir = model_config['bi_directional_jump']
+    window_size = model_config['window_size']
 
     if 'data' in targets:
         audio = load_audio(clip_path)
@@ -42,9 +52,11 @@ def main(targets):
         tf_audio
 
     if 'model' in targets:
-        correlation()
+        correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
+        
 
     if 'test' in targets:
+        temp_clip = load_audio(temp_path)
         audio = load_audio(clip_path)
         tf_audio = spectrogram(audio)
         temp = template(audio)

@@ -53,14 +53,14 @@ def main(targets):
 
     if 'model' in targets:
         correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
-        
+
 
     if 'test' in targets:
         temp_clip = load_audio(temp_path)
         audio = load_audio(clip_path)
         tf_audio = spectrogram(audio)
         temp = template(audio)
-        model = correlation()
+        model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
         output = test(clip_path, tf_audio, temp, audio, model)
         output
 

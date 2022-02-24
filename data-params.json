@@ -1,4 +1,4 @@
 {
-"clip_path": "data/test/ScreamingPiha2.wav",
-"temp_path": "data/test/ScreamingPiha1.wav"
+"clip_paths": "data/test/ScreamingPiha/",
+"temp_path": "data/templates/ScreamingPiha.npy"
 }

@@ -7,6 +7,8 @@
 import sys
 import subprocess
 import json
+from os import listdir
+from os.path import isfile, join
 
 sys.path.insert(0, 'src/data')
 sys.path.insert(0, 'src/analysis')
@@ -30,7 +32,8 @@ def main(targets):
     data_param = open('data-params.json')
     data_config = json.load(data_param)
     temp_path = data_config['temp_path']
-    clip_path = data_config['clip_path']
+    clip_paths = data_config['clip_paths']
+    clip_paths = [f for f in listdir(clip_paths) if isfile(join(clip_paths, f))]
 
     model_param = open('model-params.json')
     model_config = json.load(model_param)
@@ -40,6 +43,8 @@ def main(targets):
     threshold_min = model_config['threshold_min']
     bi_dir = model_config['bi_directional_jump']
     window_size = model_config['window_size']
+
+    print(clip_paths)
 
     if 'data' in targets:
         audio = load_audio(clip_path)
@@ -54,15 +59,14 @@ def main(targets):
     if 'model' in targets:
         correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
 
-
     if 'test' in targets:
-        temp_clip = load_audio(temp_path)
-        audio = load_audio(clip_path)
-        tf_audio = spectrogram(audio)
-        temp = template(audio)
+        temp = template(temp_path)
         model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
-        output = test(clip_path, tf_audio, temp, audio, model)
-        output
+        for clip_path in clip_paths:
+            audio = load_audio(clip_path)
+            tf_audio = spectrogram(audio)
+            output = test(clip_path, tf_audio, temp, audio, model)
+            print(output)
 
 if __name__ == '__main__':
     # run via:

@@ -29,13 +29,10 @@ def spectrogram(y):
     plt.ylabel("Frequency (0-6kHz)")
     return S
 
-def template(y):
+def template(path):
     ''' takes an audio clip (transformed), selects a portion to
         create the template, and returns the template'''
-    template = np.abs(librosa.stft(y[36000:55000]))
-    fig, ax = plt.subplots()
-    img = librosa.display.specshow(librosa.amplitude_to_db(template,ref=np.max),x_axis='time',ax=ax)
-    plt.title("Piha Template")
+    template = np.load(path + '.npy')
     return template
 
 def correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size):

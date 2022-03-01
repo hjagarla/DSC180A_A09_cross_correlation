@@ -32,8 +32,8 @@ def main(targets):
     data_param = open('data-params.json')
     data_config = json.load(data_param)
     temp_path = data_config['temp_path']
-    clip_paths = data_config['clip_paths']
-    clip_paths = [f for f in listdir(clip_paths) if isfile(join(clip_paths, f))]
+    clip_directory = data_config['clip_paths']
+    clip_paths = [clip_directory + f for f in listdir(clip_directory) if isfile(join(clip_directory, f))]
 
     model_param = open('model-params.json')
     model_config = json.load(model_param)
@@ -43,8 +43,6 @@ def main(targets):
     threshold_min = model_config['threshold_min']
     bi_dir = model_config['bi_directional_jump']
     window_size = model_config['window_size']
-
-    print(clip_paths)
 
     if 'data' in targets:
         audio = load_audio(clip_path)

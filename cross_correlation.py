@@ -72,4 +72,5 @@ def test(clip_path, S, template, y, params):
     test_df = steinberg_isolate(corr_reduced_max/max(corr_reduced_max),y,12000,"test_dir","test_file",params)
     local_line_graph(local_score, clip_path, SAMPLE_RATE, SIGNAL, automated_df = test_df, premade_annotations_df=pd.DataFrame(), save_fig=True)
     # local_score_visualization(local_score, clip_path, automated_df = test_df)
+    plt.close('all')
     return test_df

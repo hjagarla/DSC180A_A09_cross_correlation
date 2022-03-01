@@ -32,7 +32,7 @@ def spectrogram(y):
 def template(path):
     ''' takes an audio clip (transformed), selects a portion to
         create the template, and returns the template'''
-    template = np.load(path + '.npy')
+    template = np.load(path)
     return template
 
 def correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size):

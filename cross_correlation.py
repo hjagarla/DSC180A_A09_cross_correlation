@@ -70,6 +70,6 @@ def test(clip_path, S, template, y, params):
     local_score = corr_reduced_max/max(corr_reduced_max)
 
     test_df = steinberg_isolate(corr_reduced_max/max(corr_reduced_max),y,12000,"test_dir","test_file",params)
-    local_line_graph(local_score, clip_path, SAMPLE_RATE, SIGNAL, automated_df = test_df, premade_annotations_df=pd.DataFrame())
+    local_line_graph(local_score, clip_path, SAMPLE_RATE, SIGNAL, automated_df = test_df, premade_annotations_df=pd.DataFrame(), save_fig=True)
     # local_score_visualization(local_score, clip_path, automated_df = test_df)
     return test_df

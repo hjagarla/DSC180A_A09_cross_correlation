@@ -63,9 +63,15 @@ def main(targets):
         for clip_path in clip_paths:
             try:
                 audio = load_audio(clip_path)
-                tf_audio = spectrogram(audio)
-                output = test(clip_path, tf_audio, temp, audio, model)
-                print(output)
+                try:
+                    tf_audio = spectrogram(audio)
+                    try: 
+                        output = test(clip_path, tf_audio, temp, audio, model)
+                        print(output)
+                    except:
+                        pass
+                except:
+                    pass
             except:
                 pass
 

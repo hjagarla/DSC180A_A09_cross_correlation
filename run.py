@@ -64,20 +64,15 @@ def main(targets):
         temp = template(temp_path)
         model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
         for clip_path in clip_paths:
-            warnings.simplefilter("ignore")
+            print(clip_path)
             try:
                 audio = load_audio(clip_path)
-                try:
-                    tf_audio = spectrogram(audio)
-                    try: 
-                        output = test(clip_path, tf_audio, temp, audio, model)
-                        print(output)
-                    except:
-                        pass
-                except:
-                    pass
+                tf_audio = spectrogram(audio)
+                output = test(clip_path, tf_audio, temp, audio, model)
+                print(output)
             except:
                 pass
+
 
 if __name__ == '__main__':
     # run via:

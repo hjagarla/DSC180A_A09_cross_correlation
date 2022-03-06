@@ -135,7 +135,7 @@ def local_line_graph(
         #plt.savefig("../../../acoustic-species-id/DSC180A_A09_cross_correlation/data/test/CaliforniaGnatcatcher/" +
         #    clip_name[:-4] + "_Local_Score_Graph.png")
         plt.savefig("../../../acoustic-species-id/DSC180A_A09_cross_correlation/data/test/ScreamingPiha/" +
-            clip_name + "_Local_Score_Graph.png")
+            clip_name[:-4] + "_Local_Score_Graph.png")
 
 # TODO rework function so that instead of generating the automated labels, it
 # takes the automated_df as input same as it does with the manual dataframe.

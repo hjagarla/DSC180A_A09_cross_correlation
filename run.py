@@ -70,7 +70,7 @@ def main(targets):
                 output = test(clip_path, tf_audio, temp, audio, model)
                 print(clip_path, output)
             except:
-                next
+                continue
 
 
 if __name__ == '__main__':

@@ -61,10 +61,10 @@ def main(targets):
         correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
 
     if 'test' in targets:
-        warnings.simplefilter("ignore")
         temp = template(temp_path)
         model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
         for clip_path in clip_paths:
+            warnings.simplefilter("ignore")
             try:
                 audio = load_audio(clip_path)
                 try:

@@ -68,7 +68,7 @@ def main(targets):
                 audio = load_audio(clip_path)
                 tf_audio = spectrogram(audio)
                 output = test(clip_path, tf_audio, temp, audio, model)
-                print(output)
+                print(clip_path, output)
         except:
             continue
 

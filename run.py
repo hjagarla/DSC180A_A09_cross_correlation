@@ -61,6 +61,7 @@ def main(targets):
         correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
 
     if 'test' in targets:
+        warnings.simplefilter("default")
         temp = template(temp_path)
         model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
         for clip_path in clip_paths:

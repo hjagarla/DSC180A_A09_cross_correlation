@@ -61,17 +61,17 @@ def main(targets):
         correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
 
     if 'test' in targets:
-        warnings.simplefilter("default")
         temp = template(temp_path)
         model = correlation(technique, threshold_type, threshold_const, threshold_min, bi_dir, window_size)
-        for clip_path in clip_paths:
+        for clip_path in clip_paths[0:50]:
         try:
+            warnings.simplefilter("default")
             audio = load_audio(clip_path)
             tf_audio = spectrogram(audio)
             output = test(clip_path, tf_audio, temp, audio, model)
-            print(clip_path, output)
+            print(output)
         except:
-            next
+            print(e)
 
 
 if __name__ == '__main__':
